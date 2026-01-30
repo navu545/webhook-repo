@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GitHub Activity Feed</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      padding: 40px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #ffffff;
+      margin-bottom: 10px;
+      padding: 14px 18px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Latest Repository Activity</h2>
+  <ul id="activityList"></ul>
+
+<script>
+async function fetchEvents() {
+  try {
+    const response = await fetch("/webhook/events");
+    const data = await response.json();
+
+    const list = document.getElementById("activityList");
+    list.innerHTML = "";
+
+    data.forEach(event => {
+      let text = "";
+
+      if (event.action === "PUSH") {
+        text = `${event.author} pushed to ${event.to_branch} on ${event.timestamp}`;
+      }
+
+      if (event.action === "PULL_REQUEST") {
+        text = `${event.author} submitted a pull request from ${event.from_branch} to ${event.to_branch} on ${event.timestamp}`;
+      }
+
+      if (event.action === "MERGE") {
+        text = `${event.author} merged branch ${event.from_branch} to ${event.to_branch} on ${event.timestamp}`;
+      }
+
+      const li = document.createElement("li");
+      li.innerText = text;
+      list.appendChild(li);
+    });
+
+  } catch (err) {
+    console.error("Error fetching events", err);
+  }
+}
+
+fetchEvents();
+setInterval(fetchEvents, 15000);
+</script>
+
+</body>
+</html>
