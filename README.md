@@ -77,9 +77,9 @@ Each webhook event is stored as:
 
 ## 🔌 API Endpoints
 
-POST /webhook/receiver → Receive GitHub webhook (payload endpoint)
-GET /webhook/events → Get latest 10 events
-GET /webhook/ → UI page
+- POST /webhook/receiver → Receive GitHub webhook (payload endpoint)
+- GET /webhook/events → Get latest 10 events
+- GET /webhook/ → UI page
 
 ---
 
