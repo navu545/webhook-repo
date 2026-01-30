@@ -16,12 +16,12 @@ def receiver():
     extracts minimal required fields and stores them in MongoDB.
     
     """
+    payload = request.json
 
     #If payload didn't arrive, we wanna return early
     if not payload:
         return jsonify({"msg": "invalid payload"}), 400
     
-    payload = request.json
     event_type = request.headers.get("X-GitHub-Event")
 
     # MongoDB collection
