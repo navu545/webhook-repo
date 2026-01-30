@@ -13,7 +13,7 @@ def create_app():
     def api_root():
         return 'Welcome guys'
     
-    # MongoDB connection string
+    # MongoDB connection string, Hardcoding for just assessment purposes, use your own URI and hide using .env in real life
     app.config["MONGO_URI"] = "mongodb+srv://webhookuser:z2Zt6%40jhDYbAM44@github-events-cluster.0rkdbbl.mongodb.net/github_events?appName=github-events-cluster"
 
 

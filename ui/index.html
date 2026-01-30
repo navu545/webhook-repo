@@ -5,6 +5,7 @@
   <title>GitHub Activity Feed</title>
 
   <style>
+    /* Basic page styling */
     body {
       font-family: Arial, sans-serif;
       background: #f5f6fa;
@@ -35,17 +36,23 @@
   <ul id="activityList"></ul>
 
 <script>
+
+    /*Fetch latest events from backend API and render them in the UI*/
+
 async function fetchEvents() {
   try {
     const response = await fetch("/webhook/events");
     const data = await response.json();
 
     const list = document.getElementById("activityList");
+
+    // Clear previous data before re-rendering (avoid duplicates)
     list.innerHTML = "";
 
     data.forEach(event => {
       let text = "";
 
+      // Format text based on event type
       if (event.action === "PUSH") {
         text = `${event.author} pushed to ${event.to_branch} on ${event.timestamp}`;
       }
@@ -68,8 +75,8 @@ async function fetchEvents() {
   }
 }
 
-fetchEvents();
-setInterval(fetchEvents, 15000);
+fetchEvents(); // Initial load
+setInterval(fetchEvents, 15000); //Poll backend every 15 seconds
 </script>
 
 </body>
