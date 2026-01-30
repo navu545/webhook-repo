@@ -13,10 +13,11 @@ def create_app():
     def api_root():
         return 'Welcome guys'
     
-    #Establish connection with mongoDB
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/github_events"
+    # MongoDB connection string
+    app.config["MONGO_URI"] = "mongodb+srv://webhookuser:z2Zt6%40jhDYbAM44@github-events-cluster.0rkdbbl.mongodb.net/github_events?appName=github-events-cluster"
 
-    #DB to app connection
+
+    # Initialize MongoDB with Flask app
     mongo.init_app(app)
     
     # registering all the blueprints
